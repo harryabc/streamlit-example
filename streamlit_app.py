@@ -17,5 +17,5 @@ In the meantime, below is an example of what you can do with just a few lines of
 """
 
 
-o=json.load(open('浙江省人民政府-住房搜索结果.json','r',encoding='utf-8').read())
-st.write(o)
+#o=json.load(open('浙江省人民政府-住房搜索结果.json','r',encoding='utf-8').read())
+st.write({1:1})
