@@ -1,3 +1,11 @@
 altair
 pandas
 streamlit
+spacy
+jieba
+ddparser
+LAC
+collections
+re
+wordcloud
+matplotlib
