@@ -1,31 +1,20 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
-import streamlit as st
-import json
-from ddparser import DDParser
-ddp = DDParser()
 import jieba
 import collections
 import re
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
-"""
-# Welcome to Streamlit!
-
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
-
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
-
+import streamlit as st
+from jieba import analyse
+import spacy
 
 title = st.text_input('搜索', '保障性租赁住房')
+my_placeholder = st.empty()
+option = st.selectbox(
+    'Which number do you like best?',
+     [1,2,3])
 
-genre = st.radio('你需要什么，宝宝？',('关键词top10', '词云图','简化版文件'))
+'You selected: ', option
+genre = st.radio('你需要什么，宝宝？',('关键词top10', '词云图','政策文件','相关信息'))
 
 if genre=='关键词top10':
     h=open("实验1.txt","r",encoding='utf-8').read()
@@ -33,13 +22,14 @@ if genre=='关键词top10':
     num1=1
     for key in keys:
         if num1<=10:
-            st.write(key,num1)
+            st.write(key,'top',num1)
             
             num1+=1
         else:
             continue
 
 
+elif genre=='政策文件':
     def yuchuli(x):
         ls=''
         for line in x:  #打开文件
@@ -50,48 +40,68 @@ if genre=='关键词top10':
     def fenju(x):#x is 'xxxx。xxxxx。xxxx....'
         x=x.split('。')
         
-        return x
-    def juhao(w):
-        s=ddp.parse(w)
-        if s==None:
-            st.write('')
-        else:    
-            d=s[0]
-            z=0
-            d1=d['word']
-            d2=d['head']
-            d3=d['deprel']
-            
-            
-            for e in d3:
-                if e=='，'or e==',':
-                    z+=1
-                if e=='HED':
-                    st.write(d1[d3.index(e)])
-                    for i2 in d1:
-                        if i2=='，' or i2==',':
-                            z-=1
-                        elif z==0 and i2=='，':
-                            z-=1
-                        elif z==0 and i2==',':
-                            z-=1
-                        elif z==0:
-                            st.write(i2,end='')
-                            
-                        else:
-                            continue
-                    
-                    
-    o=open("实验3.txt","r",encoding='utf-8').read()
+        return x             
+    o=open("实验1.txt","r",encoding='utf-8').read()
     o=fenju(yuchuli(o))
     for o1 in o:
-        juhao(o1)
-        st.write('')
-
+        st.write(o1,end='')
+    o=open("实验1.txt","r",encoding='utf-8').read()
+    
+    k2=o.split('\n\n')
+    st.sidebar.write('政策目录')
+    for i in k2:
+        i=i.split('。')
         
-    ag_, token.dep_, token.head.text, token.head.tag_))
+        if len(i[0])<=17:
+            st.sidebar.write(i[0])
+elif genre=='相关信息':
+    import requests
+    from bs4 import BeautifulSoup
+    import re
+    import json
+    def getKeywordResult(keyword):
+        url = 'https://www.baidu.com/s?wd='+keyword
+        try:
+            r  = requests.get(url, timeout = 30)
+            r.raise_for_status()
+            r.encoding = 'utf-8'
+            return r.text
+        except:
+            return ""
+    def parserLinks(html):
+        soup = BeautifulSoup(html, "html.parser")
+        links1 = []
+        for div in soup.find_all('div', {'data-tools':re.compile('title')}):
+            data = div.attrs['data-tools']
+            d = json.loads(data)
+            links1.append(d['title'])
+            #print(links1)
+        links2 = []
+        for div in soup.find_all('div', {'data-tools':re.compile('url')}):
+            data = div.attrs['data-tools']
+            d = json.loads(data)
+            links2.append(d['url'])
+            #print(links2)
+        link=[]
+        for i in range(len(links1)):
+            link.append(links1[i])
+            link.append(links2[i])
+            
+            
+        return link
+    def main():
+        html = getKeywordResult('保障性租赁住房')
+        y = parserLinks(html)
+        count = 1
+        
+        for i1 in y:
+            st.sidebar.write(i1)
+                
+                
+    main()
 
 
+    
 
 else:
         # 958条评论数据
@@ -143,9 +153,4 @@ else:
     #plt.axis('off')
     #plt.show()
     st.pyplot()
-
-
-
-
-
 
