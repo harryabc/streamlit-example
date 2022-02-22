@@ -3,8 +3,9 @@ pandas
 streamlit
 spacy
 jieba
-ddparser
+paddlepaddle
 LAC
+ddparser
 collections
 re
 wordcloud
