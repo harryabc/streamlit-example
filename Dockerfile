@@ -5,13 +5,11 @@ FROM registry.local/factory/pythonbase:1.0
 RUN mkdir -p /usr/local/ph
 # 拷贝文件
 ADD ./ /usr/local/ph
-WORKDIR /app
-COPY requirements.txt ./requirements.txt
 # 设置工作目录
 WORKDIR /usr/local/ph
 # 安装requirements
 RUN pip install --no-cache-dir -r requirements.txt
-CMD ["python", "./main.py"]
+
 EXPOSE 8501
 ENTRYPOINT ["streamlit", "run"]
  
