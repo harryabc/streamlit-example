@@ -10,3 +10,6 @@ collections
 re
 wordcloud
 matplotlib
+bs4
+json
+requests
