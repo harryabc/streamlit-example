@@ -1,4 +1,5 @@
 altair
+numpy
 streamlit
 spacy
 jieba
