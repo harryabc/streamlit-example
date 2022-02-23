@@ -3,7 +3,6 @@ numpy
 streamlit
 spacy
 jieba
-paddlepaddle
 LAC
 ddparser
 collections
