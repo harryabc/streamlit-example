@@ -7,7 +7,7 @@ ADD ./ /usr/local/ph
 # 设置工作目录
 WORKDIR /usr/local/ph
 # 安装requirements
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt -i https://mirror.baidu.com/pypi/simple
  
 CMD ["streamlit", "run"，"./streamlit_app.py"]
 
