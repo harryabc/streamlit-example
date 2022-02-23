@@ -1,6 +1,6 @@
 
 # 基础镜像信息
-FROM registry.local/cloudtogo/python:3.6.12-alpine3.12
+FROM python:bullseye
 # 创建目录
 RUN mkdir -p /usr/local/ph
 # 拷贝文件
