@@ -9,9 +9,7 @@ ADD ./ /usr/local/ph
 WORKDIR /usr/local/ph
 # 安装requirements
 RUN pip install --no-cache-dir -r requirements.txt
+ 
+CMD ["streamlit", "run"，"streamlit_app.py"]
 
 EXPOSE 8501
-ENTRYPOINT ["streamlit", "run"]
- 
-CMD ["streamlit_app.py"]
-COPY . /app
