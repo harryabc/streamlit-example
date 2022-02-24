@@ -5,10 +5,7 @@ spacy
 jieba
 LAC
 ddparser
-collections
-re
 wordcloud
 matplotlib
 bs4
-json
 requests
