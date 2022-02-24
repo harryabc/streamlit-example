@@ -11,6 +11,6 @@ RUN pip install --upgrade pip
 RUN pip install paddlepaddle==2.2.2 -i https://mirror.baidu.com/pypi/simple
 RUN pip install --no-cache-dir -r requirements.txt
  
-CMD ["streamlit", "run"，"streamlit_app.py"]
+CMD streamlit run streamlit_app.py
 
 EXPOSE 8501
