@@ -7,6 +7,7 @@ ADD ./ /usr/local/ph
 # 设置工作目录
 WORKDIR /usr/local/ph
 # 安装requirements
+RUN pip install --upgrade pip
 RUN pip install paddlepaddle==2.2.2 -i https://mirror.baidu.com/pypi/simple
 RUN pip install --no-cache-dir -r requirements.txt
  
